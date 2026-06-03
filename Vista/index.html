@@ -1,0 +1,109 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catálogo de Biblioteca Personal</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <div class="container">
+        <header>
+            <h1>Biblioteca Personal</h1>
+            <p style="color: var(--text-muted)">Gestiona tus lecturas favoritas </p>
+        </header>
+
+        <div class="controls-panel">
+            <div class="search-filters">
+                <div class="input-group">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <input type="text" id="search-input" placeholder="Buscar por título o autor...">
+                </div>
+                
+                <select id="status-filter">
+                    <option value="">Todos los estados</option>
+                    <option value="leido">Leídos</option>
+                    <option value="no-leido">No leídos</option>
+                </select>
+            </div>
+
+            <button class="btn btn-primary" id="btn-add-book">
+                <i class="fa-solid fa-plus"></i> Agregar Libro
+            </button>
+        </div>
+
+        <main class="books-grid" id="books-container">
+            <div class="book-card">
+                <div class="book-info">
+                    <h3>Cien años de soledad</h3>
+                    <p class="author">Gabriel García Márquez</p>
+                    <p class="genre">Realismo Mágico</p>
+                    <p class="notes">Una obra maestra imprescindible de la literatura hispanoamericana. Gran relectura.</p>
+                </div>
+                <div>
+                    <div class="book-status status-read">
+                        <span class="status-badge"></span> Leído
+                    </div>
+                    <div class="card-actions">
+                        <button class="btn btn-secondary"><i class="fa-solid fa-bookmark"></i> Cambiar</button>
+                        <button class="btn btn-secondary"><i class="fa-solid fa-pen"></i> Editar</button>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <div class="modal-overlay" id="book-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modal-title">Agregar Nuevo Libro</h2>
+                <button class="close-modal" id="btn-close-modal">&times;</button>
+            </div>
+            
+            <form id="book-form">
+                <input type="hidden" id="book-id">
+
+                <div class="form-group">
+                    <label for="form-title">Título *</label>
+                    <input type="text" id="form-title" required placeholder="Ej: El Alquimista">
+                </div>
+
+                <div class="form-group">
+                    <label for="form-author">Autor *</label>
+                    <input type="text" id="form-author" required placeholder="Ej: Paulo Coelho">
+                </div>
+
+                <div class="form-group">
+                    <label for="form-genre">Género *</label>
+                    <input type="text" id="form-genre" required placeholder="Ej: Ficción, Filosofía">
+                </div>
+
+                <div class="form-group">
+                    <label for="form-notes">Notas Personales</label>
+                    <textarea id="form-notes" placeholder="Escribe tus reflexiones o apuntes sobre el libro..."></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-checkbox">
+                        <input type="checkbox" id="form-read">
+                        <span>Marcar como leído ya</span>
+                    </label>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" id="btn-cancel-modal">Cancelar</button>
+                    <button type="button" class="btn btn-secondary" id="btn-delete-book" style="display:none; color:var(--danger); background-color:#fee2e2;">
+                        <i class="fa-solid fa-trash"></i> Eliminar
+                    </button>
+                    <button type="submit" class="btn btn-primary" id="btn-save-book">Guardar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="../js/app.js"></script>
+</body>
+</html>

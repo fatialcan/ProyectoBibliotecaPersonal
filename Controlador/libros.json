@@ -1,0 +1,29 @@
+[
+    {
+        "id": 1,
+        "titulo": "Cien años de soledad",
+        "autor": "Gabriel García Márquez",
+        "genero": "Realismo Mágico",
+        "notas": "Una obra maestra imprescindible.",
+        "leido": true,
+        "eliminado": false
+    },
+    {
+        "id": 2,
+        "titulo": "El Elemento",
+        "autor": "Ken Robinson",
+        "genero": "Educación \/ Psicología",
+        "notas": "Interesante concepto sobre encontrar tu pasión.",
+        "leido": true,
+        "eliminado": true
+    },
+    {
+        "id": 3,
+        "titulo": "Tokio Blues",
+        "autor": "Haruki Murakami",
+        "genero": "Contemporaneo",
+        "notas": "tristisimo mi mero mole",
+        "leido": true,
+        "eliminado": false
+    }
+]
