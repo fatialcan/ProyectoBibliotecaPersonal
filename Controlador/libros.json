@@ -25,5 +25,41 @@
         "notas": "tristisimo mi mero mole",
         "leido": true,
         "eliminado": false
+    },
+    {
+        "id": 4,
+        "titulo": "One Piece",
+        "autor": "Eiichiro Oda",
+        "genero": "Shonen",
+        "notas": "bueno, tremendo",
+        "leido": false,
+        "eliminado": false
+    },
+    {
+        "id": 5,
+        "titulo": "Dogra Magra",
+        "autor": "Yumeno",
+        "genero": "Ficción, Suspenso, Recuentos de vida",
+        "notas": "Un libro muy interesante",
+        "leido": false,
+        "eliminado": false
+    },
+    {
+        "id": 6,
+        "titulo": "El poeta que rugió a la luna y se convirtió en tigre",
+        "autor": "Atsushi Nakajima",
+        "genero": "Refran, Aventura",
+        "notas": "",
+        "leido": false,
+        "eliminado": false
+    },
+    {
+        "id": 7,
+        "titulo": "La Historia Interminable",
+        "autor": "Micheal Ende",
+        "genero": "Fantasia",
+        "notas": "Un clasico infantil maravilloso",
+        "leido": true,
+        "eliminado": false
     }
 ]
