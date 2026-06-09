@@ -16,36 +16,40 @@
             <p style="color: var(--text-muted)">Gestiona tus lecturas favoritas </p>
         </header>
 
+        <!-- Busqueda de libro, filtrado por libros leidos y opcion para agregar un nuevo libro-->
         <div class="controls-panel">
+            <!-- buscador de libro-->
             <div class="search-filters">
                 <div class="input-group">
                     <i class="fa-solid fa-magnifying-glass"></i>
                     <input type="text" id="search-input" placeholder="Buscar por título o autor...">
                 </div>
-                
+                <!-- filtrado de leidos y no leidos-->
                 <select id="status-filter">
                     <option value="">Todos los estados</option>
                     <option value="leido">Leídos</option>
                     <option value="no-leido">No leídos</option>
                 </select>
             </div>
-
+            <!-- boton agregar nuevo libro-->
             <button class="btn btn-primary" id="btn-add-book">
                 <i class="fa-solid fa-plus"></i> Agregar Libro
             </button>
         </div>
-
+       <!-- contenido principal, la cuadricula de los libros-->
         <main class="books-grid" id="books-container">
             </main>
     </div>
-
+    
+    <!-- capa superpuesta que cubre todo el fondo de la pagina al seleccionar "Agregar libro"-->
     <div class="modal-overlay" id="book-modal">
+        <!-- ventanita blanca para agregar el contenido del nuevo libro-->
         <div class="modal-content">
             <div class="modal-header">
                 <h2 id="modal-title">Agregar Nuevo Libro</h2>
                 <button class="close-modal" id="btn-close-modal">&times;</button>
             </div>
-            
+            <!-- Grupo de formulario, es el conjunto de etiqueta + cajita para escribir la info del libro-->
             <form id="book-form">
                 <input type="hidden" id="book-id">
 
@@ -68,14 +72,15 @@
                     <label for="form-notes">Notas Personales</label>
                     <textarea id="form-notes" placeholder="Escribe tus reflexiones o apuntes sobre el libro..."></textarea>
                 </div>
-
+                
+                <!--palomita de verificacion de libro leido-->
                 <div class="form-group">
                     <label class="form-checkbox">
                         <input type="checkbox" id="form-read">
                         <span>Marcar como leído ya</span>
                     </label>
                 </div>
-
+                <!-- pie de la ventanita de agregar libro botones de Guardar/Cancelar o Eliminar si se selecciona "Editar"-->
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" id="btn-cancel-modal">Cancelar</button>
                     <button type="button" class="btn btn-secondary" id="btn-delete-book" style="display:none; color:var(--danger); background-color:#fee2e2;">

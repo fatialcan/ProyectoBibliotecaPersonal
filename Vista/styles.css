@@ -1,13 +1,14 @@
-
-        :root {
-            --bg-color: #f1f5f9;
-            --card-bg: #ffffff;
-            --text-main: #1e293b;
-            --text-muted: #64748b;
-            --primary: #2563eb;
-            --primary-hover: #1d4ed8;
-            --success: #10b981;
-            --danger: #ef4444;
+:root {
+            --bg-color: #e8eefd;      
+            --card-bg: #ffffff;       
+            --text-main: #4a4a5e;   
+            --text-muted: #8b95a5;   
+            
+            /* Colores de interacción  */
+            --primary: #8ba3cc;       /* Azul acero pastel */
+            --primary-hover: #728ab5; /* Un tono más oscuro al pasar el ratón */
+            --success: #6ee7b7;       /* Verde menta pastel para "Leído" */
+            --danger: #fca5a5;        /* Rosa/Rojo pastel para "No leído" */
             --border: #e2e8f0;
         }
 
@@ -36,16 +37,17 @@
 
         header h1 {
             font-size: 2.5rem;
-            color: #0f172a;
+            color: #3c3c52; /* Tono más oscuro de la paleta para resaltar */
             margin-bottom: 10px;
         }
 
         /* Panel de Controles (Buscador e Inserción) */
         .controls-panel {
             background-color: var(--card-bg);
-            padding: 20px;
-            border-radius: 12px;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            padding: 25px;
+            border-radius: 24px; /* Esquinas súper redondeadas estilo burbuja */
+            border: none; 
+            box-shadow: 0 15px 35px rgba(160, 170, 195, 0.2); /* Sombra amplia y difuminada */
             display: flex;
             flex-wrap: wrap;
             gap: 15px;
@@ -57,7 +59,7 @@
         .search-filters {
             display: flex;
             flex-wrap: wrap;
-            gap: 10px;
+            gap: 15px;
             flex-grow: 1;
             max-width: 800px;
         }
@@ -70,101 +72,109 @@
 
         .input-group i {
             position: absolute;
-            left: 15px;
+            left: 18px;
             top: 50%;
             transform: translateY(-50%);
             color: var(--text-muted);
         }
 
+        /* Buscador estilo pastilla */
         .input-group input {
             width: 100%;
-            padding: 12px 12px 12px 40px;
-            border: 1px solid var(--border);
-            border-radius: 8px;
+            padding: 14px 14px 14px 45px;
+            border: none;
+            background-color: #f5f7fa; 
+            border-radius: 20px;
             font-size: 1rem;
             outline: none;
-            transition: border-color 0.2s;
+            transition: box-shadow 0.2s, background-color 0.2s;
         }
 
         .input-group input:focus {
-            border-color: var(--primary);
+            background-color: #ffffff;
+            box-shadow: 0 0 0 3px rgba(139, 163, 204, 0.3); /* Resplandor azul pastel al teclear */
         }
 
+        /* Buscador desplegable*/
         select {
-            padding: 12px;
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            background-color: white;
+            padding: 14px 40px 14px 14px; /* Más espacio a la derecha para la flecha */
+            border: none;
+            background-color: #f5f7fa;
+            border-radius: 20px;
             font-size: 1rem;
+            color: var(--text-main);
             outline: none;
             cursor: pointer;
             min-width: 150px;
         }
 
         .btn {
-            padding: 12px 20px;
+            padding: 12px 24px;
             border: none;
-            border-radius: 8px;
+            border-radius: 16px; /* Botones más redonditos */
             font-size: 1rem;
             font-weight: 600;
             cursor: pointer;
             display: inline-flex;
             align-items: center;
             gap: 8px;
-            transition: background-color 0.2s, transform 0.1s;
+            transition: background-color 0.2s, transform 0.1s, box-shadow 0.2s;
         }
 
         .btn:active {
-            transform: scale(0.98);
+            transform: scale(0.96);
         }
 
         .btn-primary {
             background-color: var(--primary);
             color: white;
+            box-shadow: 0 8px 15px rgba(139, 163, 204, 0.4); /* Sombra del color del botón */
         }
 
         .btn-primary:hover {
             background-color: var(--primary-hover);
+            box-shadow: 0 10px 20px rgba(139, 163, 204, 0.5);
         }
 
         .btn-secondary {
-            background-color: #e2e8f0;
+            background-color: #f0f3f8;
             color: var(--text-main);
         }
 
         .btn-secondary:hover {
-            background-color: #cbd5e1;
+            background-color: #e2e8f0;
         }
 
         /* Grid de Libros */
         .books-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 25px;
+            gap: 30px; /* Un poco más de espacio para que respiren las sombras */
         }
 
         /* Tarjeta de Libro */
         .book-card {
             background-color: var(--card-bg);
-            border-radius: 12px;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
-            padding: 20px;
-            border: 1px solid var(--border);
+            border-radius: 24px;
+            border: none; /* Adiós bordes duros */
+            box-shadow: 0 15px 35px rgba(160, 170, 195, 0.15); /* Sombra súper suave y elegante */
+            padding: 25px;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
             position: relative;
-            transition: transform 0.2s;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
 
         .book-card:hover {
-            transform: translateY(-4px);
+            transform: translateY(-8px); /* Flota más arriba al pasar el mouse */
+            box-shadow: 0 20px 40px rgba(160, 170, 195, 0.25);
         }
 
         .book-info h3 {
             font-size: 1.3rem;
             margin-bottom: 8px;
-            color: #0f172a;
+            color: #3c3c52;
         }
 
         .book-info .author {
@@ -175,8 +185,8 @@
 
         .book-info .genre {
             display: inline-block;
-            background-color: #f1f5f9;
-            padding: 4px 10px;
+            background-color: #f0f3f8;
+            padding: 6px 14px;
             border-radius: 20px;
             font-size: 0.85rem;
             color: var(--text-muted);
@@ -185,7 +195,7 @@
 
         .book-info .notes {
             font-size: 0.95rem;
-            color: #475569;
+            color: #5c667a;
             margin-bottom: 15px;
             display: -webkit-box;
             -webkit-box-orient: vertical;
@@ -202,38 +212,46 @@
         }
 
         .status-badge {
-            width: 10px;
-            height: 10px;
+            width: 12px;
+            height: 12px;
             border-radius: 50%;
         }
 
-        .status-read { color: var(--success); }
-        .status-read .status-badge { background-color: var(--success); }
-        .status-unread { color: var(--danger); }
-        .status-unread .status-badge { background-color: var(--danger); }
+        .status-read { color: #059669; }
+        .status-read .status-badge { 
+            background-color: var(--success); 
+            box-shadow: 0 0 8px var(--success); 
+        }
+        
+        .status-unread { color: #e11d48; }
+        .status-unread .status-badge { 
+            background-color: var(--danger); 
+            box-shadow: 0 0 8px var(--danger); 
+        }
 
         .card-actions {
             display: flex;
-            gap: 10px;
-            border-top: 1px solid var(--border);
-            padding-top: 15px;
+            gap: 12px;
+            border-top: 2.5px dashed #f0f3f8; /* Línea punteada suave en vez de sólida */
+            padding-top: 20px;
         }
 
         .card-actions button {
             flex: 1;
-            padding: 8px;
+            padding: 10px;
             font-size: 0.9rem;
+            border-radius: 12px;
         }
 
-        /* Modal */
+        /* Modal rediseñado */
         .modal-overlay {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(15, 23, 42, 0.6);
-            backdrop-filter: blur(4px);
+            background-color: rgba(60, 60, 82, 0.4);
+            backdrop-filter: blur(6px); /* Cristal esmerilado de fondo */
             display: flex;
             align-items: center;
             justify-content: center;
@@ -250,63 +268,83 @@
 
         .modal-content {
             background-color: var(--card-bg);
-            padding: 30px;
-            border-radius: 16px;
+            padding: 35px;
+            border-radius: 30px; /* Súper burbuja */
             width: 100%;
             max-width: 500px;
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
-            transform: translateY(-20px);
-            transition: transform 0.3s ease;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+            transform: translateY(-20px) scale(0.95);
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* Animación de rebote */
         }
 
         .modal-overlay.active .modal-content {
-            transform: translateY(0);
+            transform: translateY(0) scale(1);
         }
 
         .modal-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
         }
 
         .modal-header h2 {
             font-size: 1.5rem;
-            color: #0f172a;
+            color: #3c3c52;
         }
 
         .close-modal {
-            background: none;
+            background: #f5f7fa;
             border: none;
-            font-size: 1.5rem;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            font-size: 1.2rem;
             cursor: pointer;
             color: var(--text-muted);
+            transition: background-color 0.2s, color 0.2s;
         }
 
-        /* Formulario del Modal */
+        .close-modal:hover {
+            background: #e2e8f0;
+            color: var(--danger);
+        }
+
+        /* Formulario del Modal  */
         .form-group {
-            margin-bottom: 15px;
+            margin-bottom: 18px;
         }
 
         .form-group label {
             display: block;
-            margin-bottom: 6px;
-            font-weight: 500;
+            margin-bottom: 8px;
+            font-weight: 600;
             font-size: 0.95rem;
+            color: var(--text-main);
+            margin-left: 5px;
         }
 
         .form-group input, .form-group textarea, .form-group select {
             width: 100%;
-            padding: 10px;
-            border: 1px solid var(--border);
-            border-radius: 8px;
+            padding: 14px;
+            border: none;
+            background-color: #f5f7fa;
+            border-radius: 16px;
             font-size: 1rem;
+            color: var(--text-main);
             outline: none;
+            transition: box-shadow 0.2s;
+        }
+
+        .form-group input:focus, .form-group textarea:focus {
+            background-color: #ffffff;
+            box-shadow: 0 0 0 3px rgba(139, 163, 204, 0.3);
         }
 
         .form-group textarea {
             resize: vertical;
-            height: 80px;
+            height: 100px;
+            border-radius: 20px;
         }
 
         .form-checkbox {
@@ -314,31 +352,39 @@
             align-items: center;
             gap: 10px;
             cursor: pointer;
-            margin-top: 10px;
+            margin-top: 15px;
+            padding: 10px 5px;
         }
 
         .form-checkbox input {
-            width: auto;
-            transform: scale(1.2);
+            width: 20px;
+            height: 20px;
+            accent-color: var(--success);
+            cursor: pointer;
         }
 
         .modal-footer {
             display: flex;
             justify-content: flex-end;
-            gap: 10px;
-            margin-top: 25px;
+            gap: 12px;
+            margin-top: 30px;
         }
 
         /* Vista de Estado Vacío */
         .empty-state {
             grid-column: 1 / -1;
             text-align: center;
-            padding: 50px;
+            padding: 60px;
             color: var(--text-muted);
+            background-color: var(--card-bg);
+            border-radius: 24px;
+            box-shadow: 0 10px 25px rgba(160, 170, 195, 0.1);
         }
 
         .empty-state i {
-            font-size: 3rem;
-            margin-bottom: 15px;
+            font-size: 4rem;
+            margin-bottom: 20px;
+            color: var(--primary);
+            opacity: 0.5;
         }
 

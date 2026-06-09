@@ -11,7 +11,7 @@ const btnDeleteBook = document.getElementById('btn-delete-book');
 const modalTitle = document.getElementById('modal-title');
 
 // URL base para los endpoints de PHP
-const API_URL = '../Controlador/'; // Déjalo vacío si los PHP están en la misma carpeta
+const API_URL = '../Controlador/'; 
 
 // --- FUNCIONES PRINCIPALES ---
 
@@ -57,7 +57,7 @@ function renderBooks(books) {
         const card = document.createElement('div');
         card.className = 'book-card';
         card.innerHTML = `
-            <div class="book-info">
+            <div class="book-info">    
                 <h3>${book.titulo}</h3>
                 <p class="author">${book.autor}</p>
                 <p class="genre">${book.genero}</p>
@@ -193,7 +193,7 @@ function attachCardEvents() {
 
 // --- EVENT LISTENERS GLOBALES ---
 
-// Búsqueda en tiempo real (evento 'input' detecta cada tecla presionada)
+// Busqueda en tiempo real (evento 'input' detecta cada tecla presionada y loadBooks la funcion a realizar)
 searchInput.addEventListener('input', loadBooks);
 statusFilter.addEventListener('change', loadBooks);
 

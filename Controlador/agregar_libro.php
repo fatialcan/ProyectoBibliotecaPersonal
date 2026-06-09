@@ -42,21 +42,20 @@ $libroAGuardar = [
     "notas" => trim($nuevoLibro['notas']),
     // Aseguramos que los booleanos se guarden correctamente
     "leido" => isset($nuevoLibro['leido']) ? (bool)$nuevoLibro['leido'] : false,
-    "eliminado" => false // Borrado lógico inicializado en falso
+    "eliminado" => false // Borrado lógico inicializado en falso porque es un libro totalmente nuevo
 ];
 
 // 5. Añadimos el libro al array
 $libros[] = $libroAGuardar;
 
 // 6. Sobreescribimos el archivo JSON con los nuevos datos
-// JSON_PRETTY_PRINT ayuda a que el archivo siga siendo legible si lo abres
+// JSON_PRETTY_PRINT ayuda a que el archivo siga siendo legible si se abre y no se vea todo en una sola linea de codigo
 file_put_contents($archivo, json_encode($libros, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
 
 // 7. Devolvemos una respuesta de éxito al JavaScript
-http_response_code(201); // 201 Created
+http_response_code(201); // 201 "Creado Exitosamente"
 echo json_encode([
     "success" => true, 
-    "mensaje" => "Libro agregado correctamente", 
     "libro" => $libroAGuardar
 ]);
 ?>
