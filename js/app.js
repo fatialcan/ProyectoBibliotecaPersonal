@@ -9,9 +9,53 @@ const btnCloseModal = document.getElementById('btn-close-modal');
 const btnCancelModal = document.getElementById('btn-cancel-modal');
 const btnDeleteBook = document.getElementById('btn-delete-book');
 const modalTitle = document.getElementById('modal-title');
+const btnLogout = document.getElementById('btn-logout');
+const sessionUser = document.getElementById('session-user');
 
 // URL base para los endpoints de PHP
-const API_URL = '../Controlador/'; 
+const API_URL = '../Controlador/';
+
+// --- SESIÓN ---
+
+async function verificarSesion() {
+    try {
+        const response = await fetch(`${API_URL}verificar_sesion.php`);
+        const data = await response.json();
+
+        if (!data.logueado) {
+            window.location.href = 'login.html';
+            return false;
+        }
+
+        if (sessionUser) {
+            sessionUser.textContent = `Usuario: ${data.usuario}`;
+        }
+
+        return true;
+    } catch (error) {
+        window.location.href = 'login.html';
+        return false;
+    }
+}
+
+function redirigirSiNoAutorizado(response) {
+    if (response.status === 401) {
+        window.location.href = 'login.html';
+        return true;
+    }
+
+    return false;
+}
+
+async function cerrarSesion() {
+    try {
+        await fetch(`${API_URL}logout.php`);
+    } catch (error) {
+        console.error('Error al cerrar sesión:', error);
+    }
+
+    window.location.href = 'login.html';
+}
 
 // --- FUNCIONES PRINCIPALES ---
 
@@ -19,10 +63,13 @@ const API_URL = '../Controlador/';
 async function loadBooks() {
     const query = searchInput.value;
     const estado = statusFilter.value;
-    
+
     try {
         // Petición AJAX (Fetch) sin recargar la página
-        const response = await fetch(`${API_URL}buscar_libros.php?q=${query}&estado=${estado}`);
+        const response = await fetch(`${API_URL}buscar_libros.php?q=${encodeURIComponent(query)}&estado=${encodeURIComponent(estado)}`);
+
+        if (redirigirSiNoAutorizado(response)) return;
+
         const data = await response.json();
         renderBooks(data);
     } catch (error) {
@@ -57,7 +104,7 @@ function renderBooks(books) {
         const card = document.createElement('div');
         card.className = 'book-card';
         card.innerHTML = `
-            <div class="book-info">    
+            <div class="book-info">
                 <h3>${book.titulo}</h3>
                 <p class="author">${book.autor}</p>
                 <p class="genre">${book.genero}</p>
@@ -115,6 +162,8 @@ async function saveBook(e) {
             });
         }
 
+        if (redirigirSiNoAutorizado(response)) return;
+
         if (response.ok) {
             closeModal();
             loadBooks(); // Recargamos la lista actualizada
@@ -127,11 +176,14 @@ async function saveBook(e) {
 // 4. Cambiar estado de lectura rápidamente (POST toggle)
 async function toggleReadStatus(id, currentStatus) {
     try {
-        await fetch(`${API_URL}leido_libro.php`, {
+        const response = await fetch(`${API_URL}leido_libro.php`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ id: parseInt(id), leido: !currentStatus })
         });
+
+        if (redirigirSiNoAutorizado(response)) return;
+
         loadBooks(); // Refrescamos para ver el cambio
     } catch (error) {
         console.error("Error al cambiar estado:", error);
@@ -142,7 +194,7 @@ async function toggleReadStatus(id, currentStatus) {
 
 function openModal(isEdit = false, bookData = null) {
     bookModal.classList.add('active');
-    
+
     if (isEdit && bookData) {
         modalTitle.textContent = 'Editar Libro';
         document.getElementById('book-id').value = bookData.id;
@@ -181,33 +233,21 @@ function attachCardEvents() {
             // Para editar, primero buscamos los detalles de este libro específico
             // En un caso real podrías traer la data del array local, aquí consultamos de nuevo por simplicidad
             const response = await fetch(`${API_URL}buscar_libros.php`);
+
+            if (redirigirSiNoAutorizado(response)) return;
+
             const books = await response.json();
             const bookToEdit = books.find(b => b.id == id);
-            
-            if(bookToEdit) {
+
+            if (bookToEdit) {
                 openModal(true, bookToEdit);
             }
         });
     });
 }
 
-// --- EVENT LISTENERS GLOBALES ---
-
-// Busqueda en tiempo real (evento 'input' detecta cada tecla presionada y loadBooks la funcion a realizar)
-searchInput.addEventListener('input', loadBooks);
-statusFilter.addEventListener('change', loadBooks);
-
-// Controles del Modal
-btnAddBook.addEventListener('click', () => openModal(false));
-btnCloseModal.addEventListener('click', closeModal);
-btnCancelModal.addEventListener('click', closeModal);
-bookForm.addEventListener('submit', saveBook);
-
-// Cargar libros al iniciar la página
-document.addEventListener('DOMContentLoaded', loadBooks);
-
 // Activar el Borrado Lógico
-btnDeleteBook.addEventListener('click', async () => {
+async function deleteBook() {
     if (confirm("¿Estás seguro de que deseas eliminar este libro de tu catálogo?")) {
         const id = document.getElementById('book-id').value;
         try {
@@ -216,6 +256,9 @@ btnDeleteBook.addEventListener('click', async () => {
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ id: parseInt(id) })
             });
+
+            if (redirigirSiNoAutorizado(response)) return;
+
             if (response.ok) {
                 closeModal();
                 loadBooks(); // Recarga la lista para que el libro desaparezca
@@ -224,4 +267,31 @@ btnDeleteBook.addEventListener('click', async () => {
             console.error("Error al eliminar:", error);
         }
     }
-});
+}
+
+// --- EVENT LISTENERS GLOBALES ---
+
+async function iniciarApp() {
+    const sesionActiva = await verificarSesion();
+    if (!sesionActiva) return;
+
+    // Busqueda en tiempo real (evento 'input' detecta cada tecla presionada y loadBooks la funcion a realizar)
+    searchInput.addEventListener('input', loadBooks);
+    statusFilter.addEventListener('change', loadBooks);
+
+    // Controles del Modal
+    btnAddBook.addEventListener('click', () => openModal(false));
+    btnCloseModal.addEventListener('click', closeModal);
+    btnCancelModal.addEventListener('click', closeModal);
+    bookForm.addEventListener('submit', saveBook);
+    btnDeleteBook.addEventListener('click', deleteBook);
+
+    if (btnLogout) {
+        btnLogout.addEventListener('click', cerrarSesion);
+    }
+
+    // Cargar libros al iniciar la página
+    loadBooks();
+}
+
+document.addEventListener('DOMContentLoaded', iniciarApp);

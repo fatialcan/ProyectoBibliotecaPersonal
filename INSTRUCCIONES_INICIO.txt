@@ -1,0 +1,33 @@
+INSTRUCCIONES PARA INICIAR EL PROYECTO
+
+1. Abre Visual Studio Code.
+
+2. Abre la terminal dentro de VS Code.
+
+3. Entra a la carpeta del proyecto con este comando:
+
+cd "C:\Users\juanp\Documents\ProyectoApInt"
+
+4. Inicia el servidor PHP con este comando:
+
+& "C:\xampp\php\php.exe" -S localhost:8000
+
+5. Deja esa terminal abierta. Mientras el servidor esté encendido, ya puedes usar el proyecto.
+
+6. Abre esta ruta en el navegador:
+
+http://localhost:8000/Vista/login.html
+
+7. Puedes entrar con la cuenta inicial:
+
+Usuario: admin
+Contraseña: 1234
+
+8. También puedes crear una nueva cuenta desde la pantalla de login, usando la pestaña "Crear cuenta".
+
+9. Para apagar el servidor, vuelve a la terminal y presiona:
+
+Ctrl + C
+
+IMPORTANTE:
+No abras el proyecto con doble clic ni con Live Server, porque el login necesita PHP y sesiones.

@@ -1,7 +1,7 @@
 <?php
 header('Content-Type: application/json; charset=utf-8');
+require_once 'proteger.php';
 
-// Capturamos los datos enviados por fetch() (Petición PUT)
 $inputJSON = file_get_contents('php://input');
 $datosEditados = json_decode($inputJSON, true);
 
@@ -11,7 +11,7 @@ if (!$datosEditados || !isset($datosEditados['id'])) {
     exit;
 }
 
-$archivo = 'libros.json';
+$archivo = __DIR__ . '/libros.json';
 if (!file_exists($archivo)) {
     http_response_code(404);
     echo json_encode(["error" => "Base de datos no encontrada."]);
@@ -19,24 +19,27 @@ if (!file_exists($archivo)) {
 }
 
 $libros = json_decode(file_get_contents($archivo), true);
+if (!is_array($libros)) {
+    $libros = [];
+}
+
 $libroActualizado = false;
 
-// Buscamos el libro y actualizamos sus campos
 foreach ($libros as $key => $libro) {
-    if ($libro['id'] == $datosEditados['id']) {
+    if ($libro['id'] == $datosEditados['id'] && isset($libro['usuario']) && $libro['usuario'] === $usuarioActual) {
         $libros[$key]['titulo'] = trim($datosEditados['titulo']);
         $libros[$key]['autor'] = trim($datosEditados['autor']);
         $libros[$key]['genero'] = trim($datosEditados['genero']);
         $libros[$key]['notas'] = trim($datosEditados['notas']);
         $libros[$key]['leido'] = isset($datosEditados['leido']) ? (bool)$datosEditados['leido'] : false;
-        
+
         $libroActualizado = true;
         break;
     }
 }
 
 if ($libroActualizado) {
-    file_put_contents($archivo, json_encode($libros, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
+    file_put_contents($archivo, json_encode($libros, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE), LOCK_EX);
     echo json_encode(["success" => true, "mensaje" => "Libro actualizado correctamente."]);
 } else {
     http_response_code(404);
